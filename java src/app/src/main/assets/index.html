@@ -1,187 +1,126 @@
 ﻿<html>
 	<head>
 		<meta charset="UTF-8">
-		<style>
-			h1{
-				font-size: 35vmin;
-			}
-			
-			h2{
-				font-size: 5vmin;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--<link rel="stylesheet" type="text/css" href="js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">-->
+		<link rel="stylesheet" type="text/css" href="js/materialize-v0.98.2/css/materialize.min.css">
 	</head>
 	<body>
-		<center><h1 id="heure"></h1></center>
-		<h2 id="compte_a_rebours"><noscript>Fin de l'événement le 3 mai 2017.</noscript></h2>
-		<p id="test"></p>
-<script type="text/javascript">
+		<center>
+			<div id="connexion-ecran" class="ecran">
+				<div>
+					<img src="img/logo_jdr.png" alt="Logo">
+				</div>
+
+				<div class="container">
+					<div class="row">
+						<div class="col s12 m6 offset-m1">
+							<div class="card">
+								<div class="card-content">
+									<span class="card-title black-text">Connexion</span>
+									<form>
+										<div class="row">
+											<div class="input-field col s12">
+												<input  id="pseudo" type="text" class="validate">
+												<label for="pseudo">Pseudo</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="input-field col s12">
+												<input id="password" type="password" class="validate">
+												<label for="password">Mot de passe</label>
+											</div>
+										</div>
+									</form>
+									<div id="loader" class="row" hidden>
+										<div id="loader-connexion" class="preloader-wrapper big">
+											<div class="spinner-layer spinner-blue">
+												<div class="circle-clipper left">
+													<div class="circle"></div>
+												</div><div class="gap-patch">
+												<div class="circle"></div>
+											</div><div class="circle-clipper right">
+												<div class="circle"></div>
+											</div>
+											</div>
+
+											<div class="spinner-layer spinner-red">
+												<div class="circle-clipper left">
+													<div class="circle"></div>
+												</div><div class="gap-patch">
+												<div class="circle"></div>
+											</div><div class="circle-clipper right">
+												<div class="circle"></div>
+											</div>
+											</div>
+
+											<div class="spinner-layer spinner-yellow">
+												<div class="circle-clipper left">
+													<div class="circle"></div>
+												</div><div class="gap-patch">
+												<div class="circle"></div>
+											</div><div class="circle-clipper right">
+												<div class="circle"></div>
+											</div>
+											</div>
+
+											<div class="spinner-layer spinner-green">
+												<div class="circle-clipper left">
+													<div class="circle"></div>
+												</div><div class="gap-patch">
+												<div class="circle"></div>
+											</div><div class="circle-clipper right">
+												<div class="circle"></div>
+											</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<button id="connexion" class="waves-effect waves-light btn">Connexion</button>
+									</div>
+									<div class="row">
+										<button id="cree-compte" class="waves-effect waves-light btn">Créer un compte</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="test"></div>
+			</div>
+
+			<div id="joueur-ecran" class="ecran">
+				Pseudo : <input id="pseudoJou" type="text" disabled>
+				MDP : <input id="mdpJou" type="text" disabled>
+				Nom : <input id="nomJou" type="text" disabled>
+				Prénom : <input id="prenomJou" type="text" disabled>
+				Email : <input id="emailJou" type="text" disabled>
+			</div>
+		</center>
+
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<!--<script src="js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
+		<script src="js/materialize-v0.98.2/js/materialize.min.js"></script>
+		<script src="js/Evenements.js"></script>
+		<script type="text/javascript">
+
+            /**
+			 * Android fait appel à la classe JavaScriptInterface dans le Java
+			 * Les classes appelé sont précédé de @JavascriptInterface sinon Javascript n'y a pas accée
+			 *
+			 * Attention cette méthode est risqué car c'est une faille dans le code Java (d'aprèes les sites)
+             */
 
-function compte_a_rebours()
+            var actionEnCours, enDev, evenement;
 
-{
+            enDev = "<span style='color: #ff7561'>⚠️ Non disponible pour le moment ⚠️</span>";
+            actionEnCours = false;
+            events = new Evenements();
 
-    var compte_a_rebours = document.getElementById("compte_a_rebours");
+			$(".ecran").hide();
+			$("#connexion-ecran").show();
 
-
-    var date_actuelle = new Date();
-
-    var date_evenement = new Date("May 4 12:00:00 2017");
-
-    var total_secondes = (date_evenement - date_actuelle) / 1000;
-
-
-    var prefixe = "<center>Compte à rebours terminé dans <strong>";
-
-    if (total_secondes < 0)
-
-    {
-
-        prefixe = "Compte à rebours terminé il y a "; // On modifie le pr�fixe si la diff�rence est n�gatif
-
-        total_secondes = Math.abs(total_secondes); // On ne garde que la valeur absolue
-
-    }
-
-
-    if (total_secondes > 0)
-
-    {
-
-        var jours = Math.floor(total_secondes / (60 * 60 * 24));
-
-        var heures = Math.floor((total_secondes - (jours * 60 * 60 * 24)) / (60 * 60));
-
-        minutes = Math.floor((total_secondes - ((jours * 60 * 60 * 24 + heures * 60 * 60))) / 60);
-
-        secondes = Math.floor(total_secondes - ((jours * 60 * 60 * 24 + heures * 60 * 60 + minutes * 60)));
-
-
-        var et = "et";
-
-        var mot_jour = "jours,";
-
-        var mot_heure = "heures,";
-
-        var mot_minute = "minutes,";
-
-        var mot_seconde = "secondes";
-
-
-        if (jours == 0)
-
-        {
-
-            jours = '';
-
-            mot_jour = '';
-
-        }
-
-        else if (jours == 1)
-
-        {
-
-            mot_jour = "jour,";
-
-        }
-
-
-        if (heures == 0)
-
-        {
-
-            heures = '';
-
-            mot_heure = '';
-
-        }
-
-        else if (heures == 1)
-
-        {
-
-            mot_heure = "heure,";
-
-        }
-
-
-        if (minutes == 0)
-
-        {
-
-            minutes = '';
-
-            mot_minute = '';
-
-        }
-
-        else if (minutes == 1)
-
-        {
-
-            mot_minute = "minute,";
-
-        }
-
-
-        if (secondes == 0)
-
-        {
-
-            secondes = '';
-
-            mot_seconde = '';
-
-            et = '';
-
-        }
-
-        else if (secondes == 1)
-
-        {
-
-            mot_seconde = "seconde";
-
-        }
-
-
-        if (minutes == 0 && heures == 0 && jours == 0)
-
-        {
-
-            et = "";
-
-        }
-
-
-        compte_a_rebours.innerHTML = prefixe + jours + ' ' + mot_jour + ' ' + heures + ' ' + mot_heure + ' ' + minutes + ' ' + mot_minute + ' ' + et + ' ' + secondes + ' ' + mot_seconde + '</strong></center>';
-
-    }
-
-    else
-
-    {
-
-        compte_a_rebours.innerHTML = 'Compte à rebours terminé.';
-
-    }
-
-
-    //var actualisation = setTimeout("compte_a_rebours();", 1000);
-
-}
-
-		function clignote(){
-			var horloge = document.getElementById("heure");
-            horloge.innerHTML = new Date().toLocaleTimeString('en-GB', { hour: "numeric", minute: "numeric", second: "numeric"});
-		}
-		
-		function test(){
-			var testt = document.getElementById("test");
-			testt.innerHTML = "test java";
-		}
-		setInterval("clignote(); compte_a_rebours();", 1000);
-	</script>
-		</body>
+		</script>
+	</body>
 </html>

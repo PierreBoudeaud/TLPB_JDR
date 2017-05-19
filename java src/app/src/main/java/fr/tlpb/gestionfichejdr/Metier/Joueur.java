@@ -20,6 +20,19 @@ public class Joueur {
 		this.lesCampagnes = new ArrayList<Campagne>();
 	}
 
+	public Joueur(String pseudoJou, String mdpJou){
+		String defaultVal = null;
+		this.idJou = 0;
+		this.pseudoJou = pseudoJou;
+		this.nomJou = defaultVal;
+		this.prenomJou = defaultVal;
+		this.mdpJou = mdpJou;
+		this.emailJou = defaultVal;
+		this.lesPersonnages = new ArrayList<Personnage>();
+		this.lesCampagnes = new ArrayList<Campagne>();
+
+	}
+
 	public int getIdJou() {
 		return idJou;
 	}
@@ -108,4 +121,16 @@ public class Joueur {
         return this.lesCampagnes.get(idCam);
     }
 
+	public String toJson() {
+		return "{" +
+				"\"idJou\":\"" + idJou +
+				"\", \"pseudoJou\":\"" + pseudoJou +
+				"\", \"nomJou\":\"" + nomJou +
+				"\", \"prenomJou\":\"" + prenomJou +
+				"\", \"mdpJou\":\"" + mdpJou +
+				"\", \"emailJou\":\"" + emailJou +
+				"\", \"lesPersonnages\":" + lesPersonnages +
+				"\", \"lesCampagnes\":" + lesCampagnes +
+				"\"}";
+	}
 }
