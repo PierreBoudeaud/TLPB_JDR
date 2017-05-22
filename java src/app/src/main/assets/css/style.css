@@ -2,6 +2,11 @@ img{
     max-width: 20%;
 }
 
+.infoJoueur{
+    text-align: center;
+    text-decoration: none;
+}
+
 .row {
     display: flex;
     align-items: center;

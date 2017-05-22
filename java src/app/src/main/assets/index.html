@@ -19,7 +19,7 @@
 							<div class="card">
 								<div class="card-content">
 									<span class="card-title black-text">Connexion</span>
-									<form>
+									<form id="connexionForm">
 										<div class="row">
 											<div class="input-field col s12">
 												<input  id="pseudo" type="text" class="validate">
@@ -87,20 +87,19 @@
 						</div>
 					</div>
 				</div>
-				<div id="test"></div>
 			</div>
 
 			<div id="joueur-ecran" class="ecran">
-				Pseudo : <input id="pseudoJou" type="text" disabled>
-				MDP : <input id="mdpJou" type="text" disabled>
-				Nom : <input id="nomJou" type="text" disabled>
-				Prénom : <input id="prenomJou" type="text" disabled>
-				Email : <input id="emailJou" type="text" disabled>
+				Id : <input id="idJou" class="infoJoueur" type="text" disabled>
+				Pseudo : <input id="pseudoJou" class="infoJoueur" type="text" disabled>
+				MDP : <input id="mdpJou" class="infoJoueur" type="text" disabled>
+				Nom : <input id="nomJou" class="infoJoueur" type="text" disabled>
+				Prénom : <input id="prenomJou" class="infoJoueur" type="text" disabled>
+				Email : <input id="emailJou" class="infoJoueur" type="text" disabled>
 			</div>
 		</center>
 
 		<script src="js/jquery-3.2.1.min.js"></script>
-		<!--<script src="js/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
 		<script src="js/materialize-v0.98.2/js/materialize.min.js"></script>
 		<script src="js/Evenements.js"></script>
 		<script type="text/javascript">
@@ -112,7 +111,7 @@
 			 * Attention cette méthode est risqué car c'est une faille dans le code Java (d'aprèes les sites)
              */
 
-            var actionEnCours, enDev, evenement;
+            var actionEnCours, enDev, events;
 
             enDev = "<span style='color: #ff7561'>⚠️ Non disponible pour le moment ⚠️</span>";
             actionEnCours = false;
@@ -120,6 +119,7 @@
 
 			$(".ecran").hide();
 			$("#connexion-ecran").show();
+
 
 		</script>
 	</body>

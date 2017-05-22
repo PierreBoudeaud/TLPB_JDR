@@ -129,8 +129,6 @@ public class Joueur {
 				"\", \"prenomJou\":\"" + prenomJou +
 				"\", \"mdpJou\":\"" + mdpJou +
 				"\", \"emailJou\":\"" + emailJou +
-				"\", \"lesPersonnages\":" + lesPersonnages +
-				"\", \"lesCampagnes\":" + lesCampagnes +
 				"\"}";
 	}
 }

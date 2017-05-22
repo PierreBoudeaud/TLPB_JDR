@@ -9,14 +9,14 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.os.Bundle;
 import android.os.Handler;
 import android.webkit.WebView;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.lang.Exception;
 
 import fr.tlpb.gestionfichejdr.Metier.Joueur;
 
@@ -46,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setLoadsImagesAutomatically(true);
     }
 
+    /*public static String toHexString(byte[] ba) {
+        StringBuilder str = new StringBuilder();
+        for(int i = 0; i < ba.length; i++)
+            str.append(String.format("%x", ba[i]));
+        return str.toString();
+    }*/
+
     public class JavaScriptInterface {
         Context mContext;
 
@@ -60,11 +67,28 @@ public class MainActivity extends AppCompatActivity {
 
         @JavascriptInterface
         public String getJsonJoueur(String pseudo, String mdp){
+            String json;
             Joueur unJoueur;
 
             unJoueur = new Joueur(pseudo, mdp);
+            json = unJoueur.toJson();
+            System.out.println(json);
+            return json;
+        }
 
-            return unJoueur.toJson();
+        @JavascriptInterface
+        public void updateInfosCo(String json){
+            File leFichierInfos;
+            FileOutputStream outputStream;
+
+            leFichierInfos = new File("file:///android_asset/infos_co.tlpb");
+            try{
+                outputStream = openFileOutput("infos_co.tlpb", Context.MODE_PRIVATE);
+                outputStream.write(json.getBytes());
+                outputStream.close();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
         }
     }
 }
