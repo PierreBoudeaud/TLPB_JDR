@@ -5,6 +5,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setAllowFileAccess(true);
         webSettings.setBlockNetworkImage(false);
         webSettings.setLoadsImagesAutomatically(true);
+
     }
 
     /*public static String toHexString(byte[] ba) {
@@ -69,9 +73,17 @@ public class MainActivity extends AppCompatActivity {
         public String getJsonJoueur(String pseudo, String mdp){
             String json;
             Joueur unJoueur;
+            GsonBuilder builder;
+            Gson gson;
 
             unJoueur = new Joueur(pseudo, mdp);
-            json = unJoueur.toJson();
+
+            builder = new GsonBuilder();
+            gson = builder.create();
+
+            //json = unJoueur.toJson();
+            json = gson.toJson(unJoueur);
+
             System.out.println(json);
             return json;
         }
