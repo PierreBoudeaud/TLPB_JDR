@@ -20,8 +20,14 @@ import android.webkit.WebSettings;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.lang.Exception;
+import java.sql.Connection;
+import java.sql.ResultSetMetaData;
+import java.sql.*;
+
+import org.postgresql.*;
 
 import fr.tlpb.gestionfichejdr.Metier.Joueur;
+import fr.tlpb.gestionfichejdr.Outil.JDBC;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -34,6 +40,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Connection conn = JDBC.connexion();
+
+        try{
+            ResultSet result = conn.createStatement().executeQuery("SELECT * FROM joueur");
+            ResultSetMetaData results = result.getMetaData();
+            int i;
+            for(i = 1; i <= results.getColumnCount(); i++){
+                System.out.println("\t " + results.getColumnName(i).toUpperCase() + "\t *");
+
+                while(result.next()){
+                    for (int a = 1; i <= results.getColumnCount(); i++){
+                        System.out.println("\t " + result.getObject(i).toString() + "\t |");
+                    }
+                }
+            }
+            result.close();
+
+
+            conn.close();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
