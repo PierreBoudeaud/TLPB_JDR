@@ -1,0 +1,1 @@
+Une association de jeu de rôle à Royan, La Tanière des Rêveurs, souhaite une application de gestion de fiche personnage sur Android et éventuellement plus tard sur ordinateur.
